@@ -1,16 +1,17 @@
-//import syntax is important as it helpd to implement the type safety.
+dotenv.config();
 import express from "express";
+import dotenv from "dotenv";
 import { Request, Response } from 'express';
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import {z} from "zod";
-const app = express();
-// const app: express.Application = express();
 import {UserModel,ContentModel} from './db';
-app.use(express.json());
 import { JWT_PASSWORD } from './config';
 import { userMiddleware } from './middleware';
-mongoose.connect('mongodb+srv://admin:webdev33@cluster0.zwuxp.mongodb.net/brainly')
+
+const app = express();
+app.use(express.json());
+mongoose.connect(process.env.MONGO_URL as string);
 
 
 app.post('/api/v1/signup', async (req: Request, res: Response): Promise<void> => {    
